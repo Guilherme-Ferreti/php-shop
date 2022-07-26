@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Routes;
 
+use App\Exceptions\MethodNotAllowedException;
+use App\Exceptions\RouteNotFoundException;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
 
@@ -28,7 +30,7 @@ class Router
     private function handleRouteResult(array $routeInfo)
     {
         if ($routeInfo[0] === Dispatcher::METHOD_NOT_ALLOWED) {
-            // Throw Method Not Allowed Exception
+            throw new MethodNotAllowedException();
         }
 
         if ($routeInfo[0] === Dispatcher::FOUND) {
@@ -43,5 +45,7 @@ class Router
                 }
             }
         }
+
+        throw new RouteNotFoundException();
     }
 }
