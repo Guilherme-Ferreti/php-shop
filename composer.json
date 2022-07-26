@@ -1,0 +1,12 @@
+{
+    "name": "guife/assessment-backend-xp",
+    "description": "Guilherme Ferreti assessment test for Webjump",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Guilherme-Ferreti",
+            "email": "guiferretis@gmail.com"
+        }
+    ],
+    "require": {}
+}
