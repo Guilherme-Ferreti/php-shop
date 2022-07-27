@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
-use Exception;
+use Throwable;
 
 class Handler
 {
@@ -13,7 +13,7 @@ class Handler
         RouteNotFoundException::class,
     ];
 
-    public static function handle(Exception $e): void
+    public static function handle(Throwable $e): void
     {
         static::logException($e);
 
@@ -24,7 +24,7 @@ class Handler
         // Render default error view
     }
 
-    public static function logException(Exception $e): void
+    public static function logException(Throwable $e): void
     {
         if (! in_array($e::class, static::$dontReport)) {
             logger()->error($e);
