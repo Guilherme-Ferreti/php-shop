@@ -11,8 +11,7 @@ class App
 {
     public function __construct(
         protected Router $router, 
-        protected array $request, 
-        protected Config $config
+        protected array $request,
     ) {}
 
     public function run(): void

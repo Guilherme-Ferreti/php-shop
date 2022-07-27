@@ -10,6 +10,8 @@ class Config
 
     public function __construct(array $env)
     {
+        $root = dirname(__FILE__, 2);
+
         $this->config = [
             'db' => [
                 'host'     => $env['DB_HOST'],
@@ -19,11 +21,29 @@ class Config
                 'database' => $env['DB_DATABASE'],
                 'driver'   => $env['DB_DRIVER'] ?? 'mysql',
             ],
+
+            'routes' => [
+                'path' => "$root/app/Http/Routes/web.php",
+            ],
+
+            'logs' => [
+                'path' => "$root/logs/",
+            ],
         ];
     }
 
-    public function __get(string $name)
+    public function get(string $key): mixed
     {
-        return $this->config[$name] ?? null;
+        $config = $this->config;
+
+        foreach (explode('.', $key) as $key) {
+            $config = $config[$key] ?? null;
+
+            if (! $config) {
+                return null;
+            }
+        }
+    
+        return $config;
     }
 }

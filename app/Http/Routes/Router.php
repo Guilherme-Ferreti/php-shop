@@ -23,7 +23,7 @@ class Router
     private function registerRoutes(): Dispatcher
     {
         return \FastRoute\simpleDispatcher(function (RouteCollector $router) { 
-            require_once __DIR__ . '/web.php';
+            require_once config('routes.path');
         });
     }
 
