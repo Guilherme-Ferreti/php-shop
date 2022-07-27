@@ -23,4 +23,9 @@ class ProductController
 
         return View::make('products/create.html', compact('categories'));
     }
+
+    public function store()
+    {
+        dd($_POST);
+    }
 }
