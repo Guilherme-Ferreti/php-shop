@@ -112,6 +112,7 @@ body {
     }
     .product-list li {
       margin-bottom: 14px;
+      max-width: 165px;
     }
     .product-list img {
       width: 165px;
