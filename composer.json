@@ -28,6 +28,12 @@
         "serve": [
             "Composer\\Config::disableProcessTimeout",
             "@php -S localhost:80 -t public"
+        ],
+        "lint": [
+            "./vendor/bin/pint --quiet"
         ]
+    },
+    "require-dev": {
+        "laravel/pint": "^1.1"
     }
 }

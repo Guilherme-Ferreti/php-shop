@@ -43,7 +43,7 @@ class Config
                 return null;
             }
         }
-    
+
         return $config;
     }
 }

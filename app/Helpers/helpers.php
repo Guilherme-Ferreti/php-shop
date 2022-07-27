@@ -35,6 +35,6 @@ function logger(string $name = 'app'): Logger
     $logger = new Logger($name);
 
     $logger->pushHandler(new StreamHandler($stream));
-    
+
     return $logger;
 }

@@ -10,9 +10,10 @@ use App\Http\Routes\Router;
 class App
 {
     public function __construct(
-        protected Router $router, 
+        protected Router $router,
         protected array $request,
-    ) {}
+    ) {
+    }
 
     public function run(): void
     {

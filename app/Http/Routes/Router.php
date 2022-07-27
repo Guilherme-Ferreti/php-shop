@@ -22,7 +22,7 @@ class Router
 
     private function registerRoutes(): Dispatcher
     {
-        return \FastRoute\simpleDispatcher(function (RouteCollector $router) { 
+        return \FastRoute\simpleDispatcher(function (RouteCollector $router) {
             require_once config('routes.path');
         });
     }
