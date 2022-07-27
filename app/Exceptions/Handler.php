@@ -8,10 +8,22 @@ use Exception;
 
 class Handler
 {
+    protected static array $dontReport = [
+        MethodNotAllowedException::class,
+        RouteNotFoundException::class,
+    ];
+
     public static function handle(Exception $e): void
     {
-        // Log exception
+        static::logException($e);
 
         // Render default error view
+    }
+
+    public static function logException(Exception $e): void
+    {
+        if (! in_array($e::class, static::$dontReport)) {
+            logger()->error($e);
+        }
     }
 }

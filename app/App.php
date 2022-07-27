@@ -16,7 +16,7 @@ class App
 
     public function run(): void
     {
-        set_exception_handler([ExceptionHandler::class , 'handle']);
+        set_exception_handler([ExceptionHandler::class, 'handle']);
 
         echo $this->router->resolve($this->request['uri'], $this->request['method']);
     }
