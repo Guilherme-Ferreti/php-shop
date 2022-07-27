@@ -10,5 +10,4 @@ use App\Models\Product;
 #[MapItemsIntoClass(Product::class)]
 class ProductCollection extends Collection
 {
-
 }

@@ -32,12 +32,12 @@ abstract class Model
     public function __set($attribute, $value)
     {
         $method = 'set' . ucfirst($attribute) . 'Attribute';
-        
+
         if (method_exists($this, $method)) {
             return $this->$method($value);
         }
 
-        return $this->attributes[$attribute] = $value;    
+        return $this->attributes[$attribute] = $value;
     }
 
     public function __get($attribute)

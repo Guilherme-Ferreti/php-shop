@@ -37,7 +37,7 @@ class Config
 
             'view' => [
                 'path' => "$root/views",
-                
+
                 'options' => [
                     'cache'            => "$root/cache/",
                     'auto_reload'      => true,
