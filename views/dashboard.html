@@ -1,25 +1,35 @@
-{% extends "layouts/app.html" %}
-
-{% block content%}
+{% extends "layouts/app.html" %} {% block content%}
 <div class="header-list-page">
-  	<h1 class="title">Dashboard</h1>
+    <h1 class="title">Dashboard</h1>
 </div>
 
 <div class="infor">
-  	You have {{ productsCount }} products added on this store: <a href="/products" class="btn-action">Add new Product</a>
+    You have {{ productsCount }} products added on this store:
+    <a href="/products" class="btn-action">Add new Product</a>
 </div>
 
 <ul class="product-list">
-	{% for product in products %}
-	<li>
-		<div class="product-image">
-			<img src="/assets/images/product/tenis-runner-bolt.png" layout="responsive" width="164" height="145" alt="Tênis Runner Bolt" />
-		</div>
-		<div class="product-info">
-			<div class="product-name"><span>{{ product.name }}</span></div>
-			<div class="product-price"><span class="special-price">{{ product.quantity }} available</span> <span>R$459,99</span></div>
-		</div>
-	</li>
-	{% endfor %}
+    {% for product in products %}
+    <li>
+        <div class="product-image">
+            <img
+                src="/assets/images/product/tenis-runner-bolt.png"
+                layout="responsive"
+                width="164"
+                height="145"
+                alt="Tênis Runner Bolt"
+            />
+        </div>
+        <div class="product-info">
+            <div class="product-name"><span>{{ product.name }}</span></div>
+            <div class="product-price">
+                <span class="special-price"
+                    >{{ product.quantity }} available</span
+                >
+                <span>{{ product.price()|format_currency('USD') }}</span>
+            </div>
+        </div>
+    </li>
+    {% endfor %}
 </ul>
 {% endblock %}

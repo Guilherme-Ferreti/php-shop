@@ -52,4 +52,10 @@ abstract class Model
             return $this->attributes[$attribute];
         }
     }
+
+    public function __isset(string $property): bool
+    {
+        return property_exists(static::class, $property)
+            || isset($this->attributes[$property]);
+    }
 }

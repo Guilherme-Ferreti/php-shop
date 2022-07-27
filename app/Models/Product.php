@@ -31,4 +31,9 @@ class Product extends Model
 
         return new ProductCollection($rows);
     }
+
+    public function price(): float
+    {
+        return $this->price / 100;
+    }
 }
