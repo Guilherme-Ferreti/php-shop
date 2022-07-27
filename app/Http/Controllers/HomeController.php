@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\View\View;
+
 class HomeController
 {
-    public function index()
+    public function index(): View
     {
-        return 'Hello word';
+        return View::make('index.html', ['phrase' => 'Hello world!']);
     }
 }

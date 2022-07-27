@@ -10,7 +10,7 @@ class Handler
 {
     protected static array $dontReport = [
         MethodNotAllowedException::class,
-        // RouteNotFoundException::class,
+        RouteNotFoundException::class,
     ];
 
     public static function handle(Exception $e): void

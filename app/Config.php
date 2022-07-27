@@ -34,6 +34,17 @@ class Config
             'logs' => [
                 'path' => "$root/logs/",
             ],
+
+            'view' => [
+                'path' => "$root/resources/views",
+                
+                'options' => [
+                    'cache'            => "$root/cache/",
+                    'auto_reload'      => true,
+                    'strict_variables' => true,
+                    'extension'        => '.html',
+                ],
+            ],
         ];
     }
 
