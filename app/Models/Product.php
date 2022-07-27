@@ -24,4 +24,11 @@ class Product extends Model
 
         return $rows[0]['count'];
     }
+
+    public static function all(string $orderBy = 'id', string $orderDirection = 'asc'): ProductCollection
+    {
+        $rows = App::db()->select("SELECT * FROM products ORDER BY $orderBy $orderDirection");
+
+        return new ProductCollection($rows);
+    }
 }
