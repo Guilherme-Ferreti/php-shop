@@ -13,6 +13,11 @@ class Config
         $root = dirname(__FILE__, 2);
 
         $this->config = [
+            'app' => [
+                'env'   => $env['APP_ENV'],
+                'debug' => $env['APP_DEBUG'],
+            ],
+
             'db' => [
                 'host'     => $env['DB_HOST'],
                 'port'     => $env['DB_PORT'],

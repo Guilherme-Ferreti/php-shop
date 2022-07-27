@@ -10,12 +10,16 @@ class Handler
 {
     protected static array $dontReport = [
         MethodNotAllowedException::class,
-        RouteNotFoundException::class,
+        // RouteNotFoundException::class,
     ];
 
     public static function handle(Exception $e): void
     {
         static::logException($e);
+
+        if (config('app.debug') === true) {
+            throw $e;
+        }
 
         // Render default error view
     }
