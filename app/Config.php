@@ -36,7 +36,7 @@ class Config
             ],
 
             'view' => [
-                'path' => "$root/resources/views",
+                'path' => "$root/views",
                 
                 'options' => [
                     'cache'            => "$root/cache/",

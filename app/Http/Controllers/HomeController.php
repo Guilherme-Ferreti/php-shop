@@ -10,6 +10,6 @@ class HomeController
 {
     public function index(): View
     {
-        return View::make('index.html', ['phrase' => 'Hello world!']);
+        return View::make('dashboard.html');
     }
 }
