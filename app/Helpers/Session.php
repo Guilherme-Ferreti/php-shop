@@ -1,13 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Helpers;
 
 class Session
 {
-    const FLASH_KEY = 'flash_session';
-    
-    const SERIALIZE = ['errorBag'];
+    public const FLASH_KEY = 'flash_session';
+
+    public const SERIALIZE = ['errorBag'];
 
     public static function set(string $key, mixed $value): void
     {
@@ -43,7 +44,7 @@ class Session
         if (in_array($key, self::SERIALIZE)) {
             $value = serialize($value);
         }
-        
+
         $_SESSION[self::FLASH_KEY][$key] = $value;
     }
 

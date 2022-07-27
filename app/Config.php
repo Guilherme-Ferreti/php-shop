@@ -45,6 +45,10 @@ class Config
                     'extension'        => '.html',
                 ],
             ],
+
+            'csrf_token' => [
+                'max_time' => 60 * 60 * 24 // 24 hours
+            ],
         ];
     }
 
