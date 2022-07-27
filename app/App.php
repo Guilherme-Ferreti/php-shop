@@ -9,10 +9,16 @@ use App\Http\Routes\Router;
 
 class App
 {
-    public function __construct(
-        protected Router $router,
-        protected array $request,
-    ) {
+    protected static DB $db;
+
+    public function __construct(protected Router $router, protected array $request)
+    {
+        static::$db = new DB(config('db'));
+    }
+
+    public static function db(): DB
+    {
+        return static::$db;
     }
 
     public function run(): void
