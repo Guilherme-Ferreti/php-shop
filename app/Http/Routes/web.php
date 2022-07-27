@@ -10,3 +10,4 @@ use FastRoute\RouteCollector;
 
 $router->get('/', [HomeController::class, 'index']);
 $router->get('/products', [ProductController::class, 'index']);
+$router->get('/products/create', [ProductController::class, 'create']);

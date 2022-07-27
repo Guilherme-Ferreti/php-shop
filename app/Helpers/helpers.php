@@ -14,11 +14,11 @@ function config(string $key): mixed
 /**
  * Dump given variables and exit the application.
  */
-function dd(): never
+function dd(...$vars): never
 {
-    foreach (func_get_args() as $arg) {
+    foreach ($vars as $var) {
         echo '<pre>';
-        var_dump($arg);
+        var_dump($var);
         echo '</pre>';
     }
 
