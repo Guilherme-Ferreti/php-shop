@@ -5,19 +5,31 @@ declare(strict_types=1);
 namespace App\Collections;
 
 use App\Attributes\MapItemsIntoClass;
-use ReflectionClass;
 
-abstract class Collection implements \IteratorAggregate
+abstract class Collection implements \IteratorAggregate, \ArrayAccess
 {
     private array $items = [];
 
     public function __construct(array $items = [])
     {
-        if (count($items)) {
+        if (count($items) > 0) {
             $items = $this->resolveCustomItemMap($items);
         }
 
         $this->items = $items;
+    }
+
+    private function resolveCustomItemMap(array $items): array
+    {
+        $reflectionClass = new \ReflectionClass(static::class);
+
+        $reflectionAttributes = $reflectionClass->getAttributes(MapItemsIntoClass::class);
+
+        if (count($reflectionAttributes) < 1) {
+            return $items;
+        }
+
+        return $reflectionAttributes[0]->newInstance()->mapItems($items);
     }
 
     public function getIterator(): \ArrayIterator
@@ -25,16 +37,23 @@ abstract class Collection implements \IteratorAggregate
         return new \ArrayIterator($this->items);
     }
 
-    private function resolveCustomItemMap(array $items): array
+    public function offsetExists(mixed $offset): bool
     {
-        $reflectionClass = new ReflectionClass(static::class);
+        return isset($this->items[$offset]);
+    }
 
-        $reflectionAttributes = $reflectionClass->getAttributes(MapItemsIntoClass::class);
+    public function offsetGet(mixed $offset): mixed
+    {
+        return $this->items[$offset];
+    }
 
-        if (! count($reflectionAttributes) < 1) {
-            return $items;
-        }
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        $this->items[$offset] = $value;
+    }
 
-        return $reflectionAttributes[0]->newInstance()->mapItems($items);
+    public function offsetUnset(mixed $offset): void
+    {
+        unset($this->items[$offset]);
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Attributes;
 
-#[\Attribute]
+#[\Attribute()]
 class MapItemsIntoClass
 {
     public function __construct(protected string $classname)
