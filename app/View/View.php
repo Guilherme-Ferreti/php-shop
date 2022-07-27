@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\View;
 
 use Twig\Environment;
+use Twig\Extra\Intl\IntlExtension;
 use Twig\Loader\FilesystemLoader;
 
 class View
@@ -16,6 +17,9 @@ class View
         $loader = new FilesystemLoader(config('view.path'));
 
         $this->engine = new Environment($loader, config('view.options'));
+
+        $this->engine->addExtension(new Functions());
+        $this->engine->addExtension(new IntlExtension());
     }
 
     public static function make(string $view, array $params = []): static
