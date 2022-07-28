@@ -59,4 +59,14 @@ class Category extends Model
 
         return $inserted;
     }
+
+    public function update(): bool
+    {
+        return $this->db->query('UPDATE categories SET name = :name, code = :code, updated_at = :updated_at WHERE id = :id', [
+            'id'         => $this->id,
+            'name'       => $this->name,
+            'code'       => $this->code,
+            'updated_at' => now(),
+        ]);
+    }
 }

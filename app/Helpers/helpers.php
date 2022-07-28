@@ -51,6 +51,11 @@ function method(string $method): string
     return '<input type="hidden" name="_METHOD" value="'.strtoupper($method).'"/>';
 }
 
+function now(string $format = 'Y-m-d H:i:s'): string
+{
+    return (new \Datetime('now'))->format($format);
+}
+
 function is_http_status_code(int|string $code): bool
 {
     $http_codes = [

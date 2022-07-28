@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\RouteNotFoundException;
 use App\Models\Category;
 use App\Validators\StoreCategoryValidator;
+use App\Validators\UpdateCategoryValidator;
 use App\View\View;
 
 class CategoryController
@@ -49,6 +50,10 @@ class CategoryController
             throw new RouteNotFoundException();
         }
 
-        dd($category);
+        $attributes = (new UpdateCategoryValidator())->ignore($category)->validate($_POST);
+
+        $category->setAttributes($attributes)->update();
+
+        redirect('/categories');
     }
 }
