@@ -14,7 +14,7 @@ class UniqueArrayValues extends Rule
 
     public function check(mixed $value): bool
     {
-        if (! isset($arvalueay)) {
+        if (! isset($value)) {
             return false;
         }
 
