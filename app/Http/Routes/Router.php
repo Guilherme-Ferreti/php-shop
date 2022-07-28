@@ -7,6 +7,7 @@ namespace App\Http\Routes;
 use App\Exceptions\MethodNotAllowedException;
 use App\Exceptions\RouteNotFoundException;
 use App\Http\Middlewares\OverrideHttpMethodMiddleware;
+use App\Http\Middlewares\SaveLastRouteMiddleware;
 use App\Http\Middlewares\SessionMiddleware;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
@@ -16,6 +17,7 @@ class Router
     protected array $middlewares = [
         SessionMiddleware::class,
         OverrideHttpMethodMiddleware::class,
+        SaveLastRouteMiddleware::class,
     ];
 
     public function resolve()

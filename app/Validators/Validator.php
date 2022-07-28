@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Validators;
 
 use App\Exceptions\ValidationException;
+use App\Helpers\Session;
+use App\Http\Middlewares\SaveLastRouteMiddleware;
 use App\Models\Model;
 use Rakit\Validation\ErrorBag;
 use Rakit\Validation\Validation;
@@ -12,8 +14,6 @@ use Rakit\Validation\Validator as BaseValidator;
 
 abstract class Validator
 {
-    protected const REDIRECT_TO = '/';
-
     protected Validation $validation;
 
     protected Model $model;
@@ -39,7 +39,7 @@ abstract class Validator
         $this->validation->validate();
 
         if ($this->validation->fails()) {
-            throw new ValidationException($this, static::REDIRECT_TO);
+            $this->handleFailure();
         }
 
         return $this->getValidatedData();
@@ -60,6 +60,13 @@ abstract class Validator
 
             $validator->addValidator($class->ruleName, $class);
         }
+    }
+
+    private function handleFailure(): void
+    {
+        $lastRoute = Session::get(SaveLastRouteMiddleware::LAST_ROUTE_KEY, '/');
+
+        throw new ValidationException($this, $lastRoute);
     }
 
     public function errors(): ErrorBag

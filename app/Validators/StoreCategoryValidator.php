@@ -6,8 +6,6 @@ namespace App\Validators;
 
 class StoreCategoryValidator extends Validator
 {
-    protected const REDIRECT_TO = '/categories/create';
-
     public function rules(): array
     {
         return [
