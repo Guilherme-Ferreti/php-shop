@@ -11,9 +11,9 @@ class CsrfMiddleware
 {
     public function __invoke(): void
     {
-        $token = $_POST['csrf_token'] ?? null;
+        $token = $_POST[CsrfToken::INPUT_NAME] ?? null;
 
-        if (! $token || CsrfToken::validate($token)) {
+        if (! $token || ! CsrfToken::validate($token)) {
             throw new BadRequestException('Invalid CSRF Token provided.');
         }
 
