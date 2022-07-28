@@ -15,4 +15,21 @@ class Category extends Model
 
         return new CategoryCollection($rows);
     }
+
+    public static function getAllWhereProductIdIn(int|array $ids): CategoryCollection
+    {
+        $rows = App::db()->select('
+            SELECT 
+                categories.*,
+                category_product.product_id AS product_id
+            FROM
+                categories
+                    INNER JOIN
+                    category_product ON categories.id = category_product.category_id
+            WHERE 
+                category_product.product_id IN (' . implode(', ', (array) $ids) . ')
+        ');
+
+        return new CategoryCollection($rows);
+    }
 }

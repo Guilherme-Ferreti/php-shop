@@ -16,6 +16,8 @@ class ProductController
     {
         $products = Product::all(orderDirection: 'desc');
 
+        $products->loadCategories();
+
         return View::make('products/index.html', compact('products'));
     }
 

@@ -15,6 +15,16 @@ class MapItemsIntoClass
     {
         $classname = $this->classname;
 
-        return array_map(fn (array $item) => new $classname($item), $items);
+        return array_map(function (mixed $item) use ($classname) {
+            if (is_array($item)) {
+                return  new $classname($item);
+            }
+
+            if ($item instanceof $classname) {
+                return $item;
+            }
+
+            return $item;
+        }, $items);
     }
 }

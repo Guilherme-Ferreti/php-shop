@@ -47,7 +47,7 @@
         </td>
 
         <td class="data-grid-td">
-            <span class="data-grid-cell-content">Category 1 <Br />Category 2</span>
+            <span class="data-grid-cell-content">{{ product.categories.pluck('name').implode('<br>')|raw }}</span>
         </td>
     
         <td class="data-grid-td">

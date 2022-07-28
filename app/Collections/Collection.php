@@ -8,7 +8,7 @@ use App\Attributes\MapItemsIntoClass;
 
 abstract class Collection implements \IteratorAggregate, \ArrayAccess
 {
-    private array $items = [];
+    protected array $items = [];
 
     public function __construct(array $items = [])
     {
@@ -55,5 +55,34 @@ abstract class Collection implements \IteratorAggregate, \ArrayAccess
     public function offsetUnset(mixed $offset): void
     {
         unset($this->items[$offset]);
+    }
+
+    public function filter(callable $callback): static
+    {
+        $filteredItems = [];
+
+        foreach ($this->items as $item) {
+            if ($callback($item)) {
+                $filteredItems[] = $item;
+            }
+        }
+
+        return new static($filteredItems);
+    }
+
+    public function pluck(string $key): GenericCollection
+    {
+        $items = [];
+
+        foreach ($this->items as $item) {
+            $items[] = $item->{$key};
+        }
+
+        return new GenericCollection($items);
+    }
+
+    public function implode(array|string $separator = ''): string
+    {
+        return implode($separator, $this->items);
     }
 }
