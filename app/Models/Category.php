@@ -33,6 +33,19 @@ class Category extends Model
         return new CategoryCollection($rows);
     }
 
+    public static function find(int $id): ?Self
+    {
+        $rows = App::db()->select('SELECT * FROM categories WHERE id = :id', [
+            'id' => $id,
+        ]);
+
+        if (count($rows) < 1) {
+            return null;
+        }
+
+        return new Self($rows[0]);
+    }
+
     public function insert(): bool
     {
         $inserted = $this->db->query('INSERT INTO categories (name, code) VALUES (:name, :code)', [

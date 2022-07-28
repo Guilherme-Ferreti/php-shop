@@ -4,20 +4,21 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\RouteNotFoundException;
 use App\Models\Category;
 use App\Validators\StoreCategoryValidator;
 use App\View\View;
 
 class CategoryController
 {
-    public function index()
+    public function index(): View
     {
         $categories = Category::all(orderDirection: 'desc');
 
         return View::make('categories/index.html', compact('categories'));
     }
 
-    public function create()
+    public function create(): View
     {
         return View::make('categories/create.html');
     }
@@ -31,5 +32,14 @@ class CategoryController
         $category->insert();
 
         redirect('/categories');
+    }
+    
+    public function edit(string $id): View
+    {
+        if (! $category = Category::find((int) $id)) {
+            throw new RouteNotFoundException();
+        }
+
+        return View::make('categories/edit.html', compact('category'));
     }
 }

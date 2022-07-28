@@ -50,7 +50,7 @@ class Router
         }
 
         if ($routeInfo[0] === Dispatcher::FOUND) {
-            [$class, $method, $middlewares] = $this->parseRouteInfo($routeInfo[1]);
+            [$class, $method, $middlewares, $pathParams] = $this->parseRouteInfo($routeInfo);
 
             if (class_exists($class)) {
                 $class = new $class();
@@ -58,7 +58,7 @@ class Router
                 if (method_exists($class, $method)) {
                     $this->runMiddlewares($middlewares);
 
-                    return call_user_func_array([$class, $method], []);
+                    return call_user_func_array([$class, $method], $pathParams);
                 }
             }
         }
@@ -68,16 +68,19 @@ class Router
 
     private function parseRouteInfo(array $routeInfo): array
     {
-        if (isset($routeInfo['controller'])) {
-            $class = $routeInfo['controller'][0] ?? '';
-            $method = $routeInfo['controller'][1] ?? '';
-            $middlewares = $routeInfo['middlewares'] ?? [];
+        $routeDefinition = $routeInfo[1];
+        $pathParams = $routeInfo[2];
+
+        if (isset($routeDefinition['controller'])) {
+            $class = $routeDefinition['controller'][0] ?? '';
+            $method = $routeDefinition['controller'][1] ?? '';
+            $middlewares = $routeDefinition['middlewares'] ?? [];
         } else {
-            $class = $routeInfo[0] ?? '';
-            $method = $routeInfo[1] ?? '';
+            $class = $routeDefinition[0] ?? '';
+            $method = $routeDefinition[1] ?? '';
             $middlewares = [];
         }
 
-        return [$class, $method, $middlewares];
+        return [$class, $method, $middlewares, $pathParams];
     }
 }
