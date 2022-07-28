@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Attributes;
 
-#[\Attribute()]
+#[\Attribute]
 class MapItemsIntoClass
 {
     public function __construct(protected string $classname)
@@ -17,7 +17,7 @@ class MapItemsIntoClass
 
         return array_map(function (mixed $item) use ($classname) {
             if (is_array($item)) {
-                return  new $classname($item);
+                return new $classname($item);
             }
 
             if ($item instanceof $classname) {
