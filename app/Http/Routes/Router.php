@@ -6,7 +6,6 @@ namespace App\Http\Routes;
 
 use App\Exceptions\MethodNotAllowedException;
 use App\Exceptions\RouteNotFoundException;
-use App\Http\Middlewares\CsrfMiddleware;
 use App\Http\Middlewares\SessionMiddleware;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;

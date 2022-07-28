@@ -9,7 +9,7 @@ use App\Helpers\CsrfToken;
 
 class CsrfMiddleware
 {
-    public function __invoke(): void 
+    public function __invoke(): void
     {
         $token = $_POST['csrf_token'] ?? null;
 

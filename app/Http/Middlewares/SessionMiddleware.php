@@ -11,7 +11,7 @@ class SessionMiddleware
     public function __invoke(): void
     {
         $GLOBALS[Session::FLASH_KEY] = Session::get(Session::FLASH_KEY);
-        
+
         Session::clearFlash();
     }
 }
