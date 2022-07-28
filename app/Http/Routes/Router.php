@@ -6,6 +6,7 @@ namespace App\Http\Routes;
 
 use App\Exceptions\MethodNotAllowedException;
 use App\Exceptions\RouteNotFoundException;
+use App\Http\Middlewares\OverrideHttpMethodMiddleware;
 use App\Http\Middlewares\SessionMiddleware;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
@@ -14,11 +15,15 @@ class Router
 {
     protected array $middlewares = [
         SessionMiddleware::class,
+        OverrideHttpMethodMiddleware::class,
     ];
 
-    public function resolve(string $requestUri, string $requestMethod)
+    public function resolve()
     {
         $this->runMiddlewares($this->middlewares);
+
+        $requestUri = $_SERVER['REQUEST_URI'];
+        $requestMethod = $_SERVER['REQUEST_METHOD'];
 
         $requestUri = rawurldecode(explode('?', $requestUri)[0]);
 
@@ -30,9 +35,7 @@ class Router
     private function runMiddlewares(array $middlewares): void
     {
         foreach ($middlewares as $middleware) {
-            $class = new $middleware();
-
-            call_user_func($class);
+            call_user_func(new $middleware());
         }
     }
 

@@ -17,6 +17,7 @@ class Functions extends AbstractExtension
             new TwigFunction('create_csrf_token', [CsrfToken::class, 'create']),
             new TwigFunction('get_flash', [Session::class, 'getFlash']),
             new TwigFunction('in_array', 'in_array'),
+            new TwigFunction('method', 'method'),
         ];
     }
 }

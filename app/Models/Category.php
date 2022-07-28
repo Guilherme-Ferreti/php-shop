@@ -33,7 +33,7 @@ class Category extends Model
         return new CategoryCollection($rows);
     }
 
-    public static function find(int $id): ?Self
+    public static function find(int $id): ?self
     {
         $rows = App::db()->select('SELECT * FROM categories WHERE id = :id', [
             'id' => $id,
@@ -43,7 +43,7 @@ class Category extends Model
             return null;
         }
 
-        return new Self($rows[0]);
+        return new self($rows[0]);
     }
 
     public function insert(): bool

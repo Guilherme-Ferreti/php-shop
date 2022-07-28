@@ -33,7 +33,7 @@ class CategoryController
 
         redirect('/categories');
     }
-    
+
     public function edit(string $id): View
     {
         if (! $category = Category::find((int) $id)) {
@@ -41,5 +41,14 @@ class CategoryController
         }
 
         return View::make('categories/edit.html', compact('category'));
+    }
+
+    public function update(string $id)
+    {
+        if (! $category = Category::find((int) $id)) {
+            throw new RouteNotFoundException();
+        }
+
+        dd($category);
     }
 }

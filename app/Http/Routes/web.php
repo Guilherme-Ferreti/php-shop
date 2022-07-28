@@ -14,8 +14,9 @@ $router->get('/', [HomeController::class, 'index']);
 
 $router->get('/categories', [CategoryController::class, 'index']);
 $router->get('/categories/create', [CategoryController::class, 'create']);
-$router->get('/categories/{id:\d+}/edit', ['controller' => [CategoryController::class, 'edit'], 'middlewares' => [CsrfMiddleware::class]]);
+$router->get('/categories/{id:\d+}/edit', [CategoryController::class, 'edit']);
 $router->post('/categories', ['controller' => [CategoryController::class, 'store'], 'middlewares' => [CsrfMiddleware::class]]);
+$router->put('/categories/{id:\d+}', [CategoryController::class, 'update']);
 
 $router->get('/products', [ProductController::class, 'index']);
 $router->get('/products/create', [ProductController::class, 'create']);

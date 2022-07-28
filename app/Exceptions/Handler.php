@@ -28,7 +28,7 @@ class Handler
 
         echo $e instanceof RenderableException
             ? $e->render()
-            : View::make('errors/500.html');
+            : View::make('errors/500.html', ['error' => $e->getMessage()]);
     }
 
     public static function logException(\Throwable $e): void

@@ -11,7 +11,7 @@ class App
 {
     protected static DB $db;
 
-    public function __construct(protected Router $router, protected array $request)
+    public function __construct(protected Router $router)
     {
         static::$db = new DB(config('db'));
     }
@@ -25,6 +25,6 @@ class App
     {
         set_exception_handler([ExceptionHandler::class, 'handle']);
 
-        echo $this->router->resolve($this->request['uri'], $this->request['method']);
+        echo $this->router->resolve();
     }
 }

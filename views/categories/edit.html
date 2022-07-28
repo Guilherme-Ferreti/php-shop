@@ -17,6 +17,8 @@
     <form action="/categories/{{ category.id }}" method="post">
 		{{ create_csrf_token()|raw }}
 
+        {{ method('put')|raw }}
+
         <div class="input-field">
             <label for="name" class="label">Category Name</label>
             <input name="name" type="text" id="name" class="input-text" required value="{{ get_flash('name', category.name) }}" />

@@ -12,7 +12,4 @@ $dotenv->load();
 
 session_start();
 
-(new App(
-    new Router(),
-    ['uri' => $_SERVER['REQUEST_URI'], 'method' => $_SERVER['REQUEST_METHOD']],
-))->run();
+(new App(new Router()))->run();
