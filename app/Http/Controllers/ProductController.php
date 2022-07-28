@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Validators\StoreProductValidator;
 use App\View\View;
 
 class ProductController
@@ -26,6 +27,8 @@ class ProductController
 
     public function store(): void
     {
-        dd($_POST);
+        $attributes = (new StoreProductValidator())->validate($_POST);
+
+        dd($_POST, $attributes);
     }
 }

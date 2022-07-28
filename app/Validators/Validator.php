@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Validations;
+namespace App\Validators;
 
 use App\Exceptions\ValidationException;
 use App\Models\Model;
@@ -54,11 +54,11 @@ abstract class Validator
                 continue;
             }
 
-            $file = str_replace('.php', '', $file);
+            $classname = __NAMESPACE__ . '\\Rules\\'. str_replace('.php', '', $file);
 
-            $class = "\App\Validations\Rules\\" . $file;
+            $class = new $classname();
 
-            $validator->addValidator(strtolower($file), new $class());
+            $validator->addValidator($class->ruleName, $class);
         }
     }
 

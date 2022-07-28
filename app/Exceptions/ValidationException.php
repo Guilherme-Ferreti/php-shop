@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Exceptions;
 
 use App\Helpers\Session;
-use App\Validations\Validator;
+use App\Validators\Validator;
 
 class ValidationException extends \Exception
 {
