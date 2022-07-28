@@ -13,7 +13,7 @@ class ValidationException extends \Exception
 
     protected $code = 422;
 
-    public function __construct(private Validator $validator, private string $redirectTo)
+    public function __construct(private Validator $validator, public string $redirectTo)
     {
         $this->flashErrorBagAndValidatedInputs();
     }
@@ -22,7 +22,7 @@ class ValidationException extends \Exception
     {
         $data = [
             'errorBag' => $this->validator->errors(),
-            ...$this->validator->validation->getValidatedData(),
+            ...$this->validator->getValidatedData(),
         ];
 
         foreach ($data as $key => $value) {

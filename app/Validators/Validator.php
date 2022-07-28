@@ -42,7 +42,7 @@ abstract class Validator
             throw new ValidationException($this, static::REDIRECT_TO);
         }
 
-        return $this->validation->getValidData();
+        return $this->getValidatedData();
     }
 
     protected function addCustomRules(BaseValidator $validator): void
@@ -65,6 +65,11 @@ abstract class Validator
     public function errors(): ErrorBag
     {
         return $this->validation->errors();
+    }
+
+    public function getValidatedData(): array
+    {
+        return $this->validation->getValidatedData();
     }
 
     protected function sanitize(array $inputs): array
