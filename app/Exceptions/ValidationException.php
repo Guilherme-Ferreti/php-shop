@@ -1,0 +1,32 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Exceptions;
+
+use App\Helpers\Session;
+use App\Validations\Validator;
+
+class ValidationException extends \Exception
+{
+    protected $message = 'The provided inputs are invalid.';
+
+    protected $code = 422;
+
+    public function __construct(private Validator $validator, private string $redirectTo)
+    {
+        $this->flashErrorBagAndValidatedInputs();
+    }
+
+    private function flashErrorBagAndValidatedInputs(): void
+    {
+        $data = [
+            'errorBag' => $this->validator->errors(),
+            ...$this->validator->validation->getValidatedData(),
+        ];
+
+        foreach ($data as $key => $value) {
+            Session::setFlash($key, $value);
+        }
+    }
+}

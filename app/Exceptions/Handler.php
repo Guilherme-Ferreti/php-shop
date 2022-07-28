@@ -10,17 +10,20 @@ use App\View\View;
 class Handler
 {
     protected static array $dontReport = [
+        BadRequestException::class,
         MethodNotAllowedException::class,
         RouteNotFoundException::class,
-        BadRequestException::class,
+        ValidationException::class,
     ];
 
     public static function handle(\Throwable $e): void
     {
         static::logException($e);
 
-        if (config('app.debug') === true) {
-            throw $e;
+        if ($e instanceof ValidationException) {
+            header("Location: $e->redirectTo");
+
+            exit();
         }
 
         http_response_code(is_http_status_code($e->getCode()) ? $e->getCode() : 500);

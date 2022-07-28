@@ -10,21 +10,21 @@ use App\View\View;
 
 class ProductController
 {
-    public function index()
+    public function index(): View
     {
         $products = Product::all(orderDirection: 'desc');
 
         return View::make('products/index.html', compact('products'));
     }
 
-    public function create()
+    public function create(): View
     {
         $categories = Category::all(orderBy: 'name');
 
         return View::make('products/create.html', compact('categories'));
     }
 
-    public function store()
+    public function store(): void
     {
         dd($_POST);
     }
