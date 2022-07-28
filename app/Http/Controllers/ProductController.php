@@ -29,6 +29,8 @@ class ProductController
     {
         $attributes = (new StoreProductValidator())->validate($_POST);
 
-        dd($attributes);
+        Product::create($attributes);
+
+        redirect('/products');
     }
 }

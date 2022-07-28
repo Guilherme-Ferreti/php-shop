@@ -21,9 +21,7 @@ class Handler
         static::logException($e);
 
         if ($e instanceof ValidationException) {
-            header("Location: $e->redirectTo");
-
-            exit();
+            redirect($e->redirectTo);
         }
 
         http_response_code(is_http_status_code($e->getCode()) ? $e->getCode() : 500);

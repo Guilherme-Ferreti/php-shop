@@ -32,6 +32,40 @@ class Product extends Model
         return new ProductCollection($rows);
     }
 
+    public static function create(array $attributes): self
+    {
+        $product = new Self($attributes);
+
+        App::db()->beginTransaction();
+
+        $product->save();
+
+        App::db()->commit();
+
+        return $product;
+    }
+
+    public function save(): bool
+    {
+        $saved = $this->db->query(
+            'INSERT INTO products (name, sku, price, quantity, description) 
+                VALUES (:name, :sku, :price, :quantity, :description)', 
+            [
+                'name'        => $this->name,
+                'sku'         => $this->sku,
+                'price'       => $this->price * 100,
+                'quantity'    => $this->quantity,
+                'description' => $this->description,
+            ]
+        );
+
+        if ($saved) {
+            $this->id = $this->db->lastInsertId();
+        }
+
+        return $saved;
+    }
+
     public function price(): float
     {
         return $this->price / 100;

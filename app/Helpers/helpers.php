@@ -39,6 +39,13 @@ function logger(string $name = 'app'): Logger
     return $logger;
 }
 
+function redirect(string $uri): never
+{
+    header("Location: $uri");
+
+    exit();
+}
+
 function is_http_status_code(int|string $code): bool
 {
     $http_codes = [
