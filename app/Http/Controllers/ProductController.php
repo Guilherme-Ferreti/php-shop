@@ -29,6 +29,6 @@ class ProductController
     {
         $attributes = (new StoreProductValidator())->validate($_POST);
 
-        dd($_POST, $attributes);
+        dd($attributes);
     }
 }

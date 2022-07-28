@@ -12,10 +12,14 @@ class UniqueArrayValues extends Rule
 
     protected $message = 'The field :attribute must contain only unique values.';
 
-    public function check($array): bool
+    public function check(mixed $value): bool
     {
-        $unique = array_unique($array);
+        if (! isset($arvalueay)) {
+            return false;
+        }
 
-        return count($unique) == count($array);
+        $unique = array_unique($value);
+
+        return count($unique) == count($value);
     }
 }
