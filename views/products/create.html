@@ -33,8 +33,15 @@
     <div class="input-field">
         <label for="categories" class="label">Categories</label>
         <select name="categories[]" multiple id="categories" class="input-text">
+            {% set oldCategories = get_flash('categories', []) %}
+
             {% for category in categories %}
-            <option value="{{ category.id }}">{{ category.name }}</option>
+            <option
+                value="{{ category.id }}" 
+                {% if in_array(category.id, oldCategories) %} selected {% endif %}
+            >
+                {{ category.name }}
+            </option>
             {% endfor %}
         </select>
     </div>
