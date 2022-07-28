@@ -21,7 +21,7 @@ class ValidationException extends \Exception
     private function flashErrorBagAndValidatedInputs(): void
     {
         $data = [
-            'errorBag' => $this->validator->errors(),
+            'error_bag' => $this->validator->errors(),
             ...$this->validator->getValidatedData(),
         ];
 

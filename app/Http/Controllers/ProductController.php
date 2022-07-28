@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Session;
 use App\Models\Category;
 use App\Models\Product;
 use App\Validators\StoreProductValidator;

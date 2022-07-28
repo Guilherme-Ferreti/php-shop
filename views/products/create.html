@@ -1,24 +1,34 @@
 {% extends "layouts/app.html" %} {% block content%}
 <h1 class="title new-item">New Product</h1>
 
+{% set errorBag = get_flash('error_bag') %}
+
+{% if errorBag != null %}
+    <ul>
+        {% for error in errorBag.all() %}
+            <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
 <form action="/products" method="post">
     {{ create_csrf_token()|raw }}
 
     <div class="input-field">
         <label for="sku" class="label">Product SKU</label>
-        <input name="sku" type="text" id="sku" class="input-text" required />
+        <input name="sku" type="text" id="sku" class="input-text" required value="{{ get_flash('sku') }}"/>
     </div>
     <div class="input-field">
         <label for="name" class="label">Product Name</label>
-        <input name="name" type="text" id="name" class="input-text" required />
+        <input name="name" type="text" id="name" class="input-text" required value="{{ get_flash('name') }}"/>
     </div>
     <div class="input-field">
         <label for="price" class="label">Price</label>
-        <input name="price" type="text" id="price" class="input-text" required />
+        <input name="price" type="text" id="price" class="input-text" required value="{{ get_flash('price') }}"/>
     </div>
     <div class="input-field">
         <label for="quantity" class="label">Quantity</label>
-        <input name="quantity" type="text" id="quantity" class="input-text" required />
+        <input name="quantity" type="text" id="quantity" class="input-text" required value="{{ get_flash('quantity') }}"/>
     </div>
     <div class="input-field">
         <label for="categories" class="label">Categories</label>
@@ -30,7 +40,7 @@
     </div>
     <div class="input-field">
         <label for="description" class="label">Description</label>
-        <textarea name="description" id="description" class="input-text"></textarea>
+        <textarea name="description" id="description" class="input-text">{{ get_flash('description') }}</textarea>
     </div>
     <div class="actions-form">
         <a href="/products" class="action back">Back</a>

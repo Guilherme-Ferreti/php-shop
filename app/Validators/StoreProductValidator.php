@@ -11,7 +11,12 @@ class StoreProductValidator extends Validator
     public function rules(): array
     {
         return [
-            'name' => 'required',
+            'name'        => 'required|max:255',
+            'sku'         => 'required|max:255',
+            'price'       => 'required|numeric',
+            'quantity'    => 'required|integer',
+            'description' => 'nullable|max:255',
+            'categories'  => 'nullable|array',
         ];
     }
 }
