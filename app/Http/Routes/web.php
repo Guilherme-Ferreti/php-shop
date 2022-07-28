@@ -13,6 +13,8 @@ use FastRoute\RouteCollector;
 $router->get('/', [HomeController::class, 'index']);
 
 $router->get('/categories', [CategoryController::class, 'index']);
+$router->get('/categories/create', [CategoryController::class, 'create']);
+$router->post('/categories', ['controller' => [CategoryController::class, 'store'], 'middlewares' => [CsrfMiddleware::class]]);
 
 $router->get('/products', [ProductController::class, 'index']);
 $router->get('/products/create', [ProductController::class, 'create']);

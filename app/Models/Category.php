@@ -32,4 +32,18 @@ class Category extends Model
 
         return new CategoryCollection($rows);
     }
+
+    public function insert(): bool
+    {
+        $inserted = $this->db->query('INSERT INTO categories (name, code) VALUES (:name, :code)', [
+            'name' => $this->name,
+            'code' => $this->code,
+        ]);
+
+        if ($inserted) {
+            $this->id = $this->db->lastInsertId();
+        }
+
+        return $inserted;
+    }
 }
