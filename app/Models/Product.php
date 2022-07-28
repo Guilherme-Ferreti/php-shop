@@ -32,24 +32,11 @@ class Product extends Model
         return new ProductCollection($rows);
     }
 
-    public static function create(array $attributes): self
+    public function insert(): bool
     {
-        $product = new Self($attributes);
-
-        App::db()->beginTransaction();
-
-        $product->save();
-
-        App::db()->commit();
-
-        return $product;
-    }
-
-    public function save(): bool
-    {
-        $saved = $this->db->query(
+        $inserted = $this->db->query(
             'INSERT INTO products (name, sku, price, quantity, description) 
-                VALUES (:name, :sku, :price, :quantity, :description)', 
+                VALUES (:name, :sku, :price, :quantity, :description)',
             [
                 'name'        => $this->name,
                 'sku'         => $this->sku,
@@ -59,11 +46,26 @@ class Product extends Model
             ]
         );
 
-        if ($saved) {
+        if ($inserted) {
             $this->id = $this->db->lastInsertId();
         }
 
-        return $saved;
+        return $inserted;
+    }
+
+    public function syncCategories(array $categoriesIds): bool
+    {
+        $this->db->query('DELETE FROM category_product WHERE product_id = :id', [':id' => $this->id]);
+
+        $query = 'INSERT INTO category_product (category_id, product_id) VALUES ';
+
+        foreach ($categoriesIds as $categoryId) {
+            $query .= "($categoryId, {$this->id}),";
+        }
+
+        $query = rtrim($query, ',');
+
+        return $this->db->query($query);
     }
 
     public function price(): float

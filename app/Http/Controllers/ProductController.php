@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Actions\StoreProductAction;
 use App\Models\Category;
 use App\Models\Product;
 use App\Validators\StoreProductValidator;
@@ -29,7 +30,9 @@ class ProductController
     {
         $attributes = (new StoreProductValidator())->validate($_POST);
 
-        Product::create($attributes);
+        $action = new StoreProductAction();
+
+        $action($attributes);
 
         redirect('/products');
     }
