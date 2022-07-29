@@ -17,8 +17,9 @@ $router->get('/categories/create', [CategoryController::class, 'create']);
 $router->get('/categories/{id:\d+}/edit', [CategoryController::class, 'edit']);
 $router->post('/categories', ['controller' => [CategoryController::class, 'store'], 'middlewares' => [CsrfMiddleware::class]]);
 $router->put('/categories/{id:\d+}', [CategoryController::class, 'update']);
-$router->delete('/categories/{id:\d+}', [CategoryController::class, 'destroy']);
+$router->delete('/categories/{id:\d+}', ['controller' => [CategoryController::class, 'destroy'], 'middlewares' => [CsrfMiddleware::class]]);
 
 $router->get('/products', [ProductController::class, 'index']);
 $router->get('/products/create', [ProductController::class, 'create']);
 $router->post('/products', ['controller' => [ProductController::class, 'store'], 'middlewares' => [CsrfMiddleware::class]]);
+$router->delete('/products/{id:\d+}', ['controller' => [ProductController::class, 'destroy'], 'middlewares' => [CsrfMiddleware::class]]);

@@ -32,6 +32,19 @@ class Product extends Model
         return new ProductCollection($rows);
     }
 
+    public static function find(int $id): ?self
+    {
+        $rows = App::db()->select('SELECT * FROM products WHERE id = :id', [
+            'id' => $id,
+        ]);
+
+        if (count($rows) < 1) {
+            return null;
+        }
+
+        return new self($rows[0]);
+    }
+
     public function insert(): bool
     {
         $inserted = $this->db->query(
@@ -51,6 +64,13 @@ class Product extends Model
         }
 
         return $inserted;
+    }
+
+    public function delete(): bool
+    {
+        return $this->db->query('DELETE FROM products WHERE id = :id', [
+            'id' => $this->id,
+        ]);
     }
 
     public function syncCategories(array $categoriesIds): bool

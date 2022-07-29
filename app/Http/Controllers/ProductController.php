@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Actions\StoreProductAction;
+use App\Exceptions\RouteNotFoundException;
 use App\Models\Category;
 use App\Models\Product;
 use App\Validators\StoreProductValidator;
@@ -35,6 +36,17 @@ class ProductController
         $action = new StoreProductAction();
 
         $action($attributes);
+
+        redirect('/products');
+    }
+
+    public function destroy(string $id)
+    {
+        if (! $product = Product::find((int) $id)) {
+            throw new RouteNotFoundException();
+        }
+
+        $product->delete();
 
         redirect('/products');
     }

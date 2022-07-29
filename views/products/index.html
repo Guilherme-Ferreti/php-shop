@@ -53,10 +53,26 @@
         <td class="data-grid-td">
             <div class="actions">
                 <div class="action edit"><span>Edit</span></div>
-                <div class="action delete"><span>Delete</span></div>
+                <div class="action delete">
+                    <div class="action delete">
+                        <form id="form-{{ product.id }}" action="/products/{{ product.id }}" method="post">
+                            {{ create_csrf_token()|raw }}
+                        
+                            {{ method('delete')|raw }}
+                        
+                            <a href="#" onclick="deleteProduct({{ product.id }})">Delete</a>
+                        </form>
+                    </div>
+                </div>
             </div>
         </td>
     </tr>
     {% endfor %}
 </table>
+
+<script>
+    function deleteProduct(categoryId) {
+        document.getElementById(`form-${categoryId}`).submit();
+    }
+</script>
 {% endblock %}
