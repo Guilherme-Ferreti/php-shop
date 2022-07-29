@@ -13,6 +13,11 @@ After cloning the repository, install the dependencies by running the following 
 
 ```composer install```
 
+You may use the dockerfile found in *docker/* to setup the necessary environment.
+
+```cd docker```
+```docker-compose up -d```
+
 Create a *.env* file in the root folder by copying *.env.example* and add your MySQL credentials.
 
 ```cp .env.example .env```

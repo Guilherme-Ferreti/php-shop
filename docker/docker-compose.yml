@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      dockerfile: Dockerfile
+    container_name: product-store
+    restart: always
+    volumes:
+      - ../:/var/www
+    networks:
+      - internal
+  nginx:
+    image: nginx:1.19-alpine
+    container_name: product-store-nginx
+    restart: always
+    ports:
+      - 8000:80
+    volumes:
+      - ../:/var/www
+      - ./nginx:/etc/nginx/conf.d
+    networks:
+      - internal
+  db:
+    container_name: product-store-db
+    image: mysql:8.0
+    volumes:
+      - ./storage/mysql:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: product_store
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3307:3306
+    networks:
+      - internal
+networks:
+  internal:
+    driver: bridge
