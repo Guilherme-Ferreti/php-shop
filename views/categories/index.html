@@ -28,12 +28,29 @@
 
             <td class="data-grid-td">
                 <div class="actions">
-                    <div class="action edit"><a href="/categories/{{ category.id }}/edit">Edit</a></div>
-                    <div class="action delete"><span>Delete</span></div>
+                    <div class="action edit">
+                        <a href="/categories/{{ category.id }}/edit">Edit</a>
+                    </div>
+                    <div class="action delete">
+                        <form id="form-{{ category.id }}" action="/categories/{{ category.id }}" method="post">
+                            {{ create_csrf_token()|raw }}
+                        
+                            {{ method('delete')|raw }}
+                        
+                            <a href="#" onclick="deleteCategory({{ category.id }})">Delete</a>
+                        </form>
+                    </div>
                 </div>
             </td>
         </tr>
         {% endfor %}
     </table>
 </main>
+
+<script>
+    function deleteCategory(categoryId) {
+        document.getElementById(`form-${categoryId}`).submit();
+    }
+</script>
+
 {% endblock %}

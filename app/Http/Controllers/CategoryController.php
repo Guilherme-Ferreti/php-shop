@@ -56,4 +56,15 @@ class CategoryController
 
         redirect('/categories');
     }
+
+    public function destroy(string $id)
+    {
+        if (! $category = Category::find((int) $id)) {
+            throw new RouteNotFoundException();
+        }
+
+        $category->delete();
+
+        redirect('/categories');
+    }
 }

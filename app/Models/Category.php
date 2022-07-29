@@ -69,4 +69,11 @@ class Category extends Model
             'updated_at' => now(),
         ]);
     }
+
+    public function delete(): bool
+    {
+        return $this->db->query('DELETE FROM categories WHERE id = :id', [
+            'id' => $this->id,
+        ]);
+    }
 }
