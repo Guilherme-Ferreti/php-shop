@@ -2,12 +2,12 @@
 
 This project is my answer to WebJump assessment test.
 
-## Requirements
+### Requirements
 
 * PHP 8.1 or newer.
 * MySQL database.
 
-## Installation
+### Installation
 
 After cloning the repository, install the dependencies by running the following command in your application's root folder:
 
@@ -17,7 +17,7 @@ Create a *.env* file in the root folder by copying *.env.example* and add your M
 
 ```cp .env.example .env```
 
-For database setup, use the file found in *docs/database.sql*.
+For database setup, run the SQL script found in *docs/database.sql*.
 
 Point your virtual host document root to application's public directory. 
 
@@ -27,7 +27,7 @@ If you are not using tools like WAMP or Apache, you may use PHP built-in server,
 
 ```composer serve```
 
-#### Features
+### Features
 
 * Web routes.
 * CSRF Middleware protection.
@@ -38,7 +38,7 @@ If you are not using tools like WAMP or Apache, you may use PHP built-in server,
 * Helper class to deal with session and flash data.
 * Simple collection implementation.
 
-## Useful Scripts
+### Useful Scripts
 
 • Run Laravel Pint code style fixer:
 
