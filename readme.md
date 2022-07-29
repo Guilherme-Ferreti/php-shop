@@ -1,48 +1,45 @@
-# Você quer ser um desenvolvedor Backend na Web Jump?
-Criamos esse teste para avaliar seus conhecimentos e habilidades como desenvolvedor backend.
+# Product Store
 
-# O teste
-O desafio é desenvolver um sistema de gerenciamento de produtos. Esse sistema será composto de um cadastro de produtos e categorias. Os requisitos desse sistema estão listados nos tópicos abaixo.
-Não existe certo ou errado, queremos saber como você se sai em situações reais como esse desafio.
+This project is my answer to WebJump assessment test.
 
-# Instruções
-- O foco principal do nosso teste é o backend. Para facilitar você poderá utilizar os arquivos html  disponíveis no diretório assets
-- Crie essa aplicação como se fosse uma aplicação real, que seria utilizada pelo WebJump
-- Fique à vontade para usar bibliotecas/componentes externos (composer)
-- Não utilize nenhum Framework, tais como Laravel, Lumen ou Symphony
-- Seguir princípios **SOLID** 
-- Utilize boas práticas de programação
-- Utilize boas práticas de git
-- Documentar como rodar o projeto
-- Crie uma documentação simples comentando sobre as tecnologias, versões e soluções adotadas
+## Requirements
 
-# Requisitos
-- O sistema deverá ser desenvolvido utilizando a linguagem PHP (de preferência a versão mais nova) ou outra linguagem se assim foi especificado para sua avaliação por nossa equipe.
-- Você deve criar um CRUD que permita cadastrar as seguintes informações:
-	- **Produto**: Nome, SKU (Código), preço, descrição, quantidade e categoria (cada produto pode conter uma ou mais categorias)
-	- **Categoria**: Código e nome.
-- Salvar as informações necessárias em um banco de dados (relacional ou não), de sua escolha
+* PHP 8.1 or newer.
+* MySQL database.
 
-# Opcionais
-- Gerar logs das ações
-- Testes automatizados com informação da cobertura de testes
-- Upload de imagem no cadastro de produtos
+## Installation
 
-# O que será avaliado
-- Estrutura e organização do código e dos arquivos
-- Soluções adotadas
-- Tecnologias utilizadas
-- Qualidade
-- Padrões PSR, Design Patterns
-- Enfim, tudo será observado e levado em conta
+After cloning the repository, install the dependencies by running the following command in your application's root folder:
 
-# Como iniciar o desenvolvimento
-- **Fork** esse repositório na sua conta do BitBucket.
-- Crie uma branch com o nome **desafio**
+```composer install```
 
-# Como enviar seu teste
-Envie um email para [carreira@webjump.com.br] com o link do seu repositório.
+Create a *.env* file in the root folder by copying *.env.example* and add your MySQL credentials.
 
-O repositório do teste precisa ser público. 
+```cp .env.example .env```
 
-Qualquer dúvida sobre o teste, fique a vontade para entrar em contato conosco.
+For database setup, use the file found in *docs/database.sql*.
+
+Point your virtual host document root to application's public directory. 
+
+If you are not using tools like WAMP or Apache, you may use PHP built-in server, or the pre-defined composer script.
+
+```php -S localhost:80 -t public```
+
+```composer serve```
+
+#### Features
+
+* Web routes.
+* CSRF Middleware protection.
+* Database class using PHP's PDO.
+* View class, powered by [Twig Template Engine](https://twig.symfony.com/).
+* [Rakit\Validation Library](https://github.com/rakit/validation) for validation and rules support.
+* Application error logging, powered by [Monolog](https://seldaek.github.io/monolog/).
+* Helper class to deal with session and flash data.
+* Simple collection implementation.
+
+## Useful Scripts
+
+• Run Laravel Pint code style fixer:
+
+```composer lint```
