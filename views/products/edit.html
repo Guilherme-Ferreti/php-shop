@@ -1,0 +1,63 @@
+{% extends "layouts/app.html" %} {% block content%}
+<h1 class="title new-item">New Product</h1>
+
+{% set errorBag = get_flash('error_bag') %}
+
+{% if errorBag != null %}
+    <ul>
+        {% for error in errorBag.all() %}
+            <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<form action="/products/{{ product.id }}" method="post">
+    {{ create_csrf_token()|raw }}
+
+    {{ method('put')|raw }}
+
+    <div class="input-field">
+        <label for="sku" class="label">Product SKU</label>
+        <input name="sku" type="text" id="sku" class="input-text" required value="{{ get_flash('sku', product.sku) }}"/>
+    </div>
+    <div class="input-field">
+        <label for="name" class="label">Product Name</label>
+        <input name="name" type="text" id="name" class="input-text" required value="{{ get_flash('name', product.name) }}"/>
+    </div>
+    <div class="input-field">
+        <label for="price" class="label">Price</label>
+        <input name="price" type="text" id="price" class="input-text" required value="{{ get_flash('price', product.price()) }}"/>
+    </div>
+    <div class="input-field">
+        <label for="quantity" class="label">Quantity</label>
+        <input name="quantity" type="number" id="quantity" class="input-text" required value="{{ get_flash('quantity', product.quantity) }}"/>
+    </div>
+    <div class="input-field">
+        <label for="categories" class="label">Categories</label>
+        <select name="categories[]" multiple id="categories" class="input-text">
+            {% set oldCategories = get_flash('categories', product.categories.pluck('id').all()) %}
+
+            {% for category in categories %}
+            <option
+                value="{{ category.id }}" 
+                {% if in_array(category.id, oldCategories) %} selected {% endif %}
+            >
+                {{ category.name }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="input-field">
+        <label for="description" class="label">Description</label>
+        <textarea name="description" id="description" class="input-text">{{ get_flash('description', product.description) }}</textarea>
+    </div>
+    <div class="actions-form">
+        <a href="/products" class="action back">Back</a>
+        <input
+            class="btn-submit btn-action"
+            type="submit"
+            value="Save Product"
+        />
+    </div>
+</form>
+{% endblock %}

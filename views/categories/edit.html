@@ -1,0 +1,36 @@
+{% extends "layouts/app.html" %}
+
+{% block content %}
+<main class="content">
+    <h1 class="title new-item">New Category</h1>
+
+	{% set errorBag = get_flash('error_bag') %}
+
+	{% if errorBag != null %}
+		<ul>
+			{% for error in errorBag.all() %}
+				<li>{{ error }}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+    <form action="/categories/{{ category.id }}" method="post">
+		{{ create_csrf_token()|raw }}
+
+        {{ method('put')|raw }}
+
+        <div class="input-field">
+            <label for="name" class="label">Category Name</label>
+            <input name="name" type="text" id="name" class="input-text" required value="{{ get_flash('name', category.name) }}" />
+        </div>
+        <div class="input-field">
+            <label for="code" class="label">Category Code</label>
+            <input name="code" type="text" id="code" class="input-text" required value="{{ get_flash('code', category.code) }}" />
+        </div>
+        <div class="actions-form">
+            <a href="/categories" class="action back">Back</a>
+            <input class="btn-submit btn-action" type="submit" value="Save" />
+        </div>
+    </form>
+</main>
+{% endblock %}
