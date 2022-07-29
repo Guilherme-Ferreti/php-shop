@@ -7,17 +7,15 @@ namespace App\Actions;
 use App\App;
 use App\Models\Product;
 
-class StoreProductAction
+class UpdateProductAction
 {
-    public function __invoke(array $attributes): Product|false
+    public function __invoke(Product $product, array $attributes): Product|false
     {
         App::db()->beginTransaction();
 
         $attributes['price'] = $attributes['price'] * 100;
 
-        $product = new Product($attributes);
-
-        if (! $product->insert()) {
+        if (! $product->setAttributes($attributes)->update()) {
             return false;
         }
 

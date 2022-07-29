@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Actions\StoreProductAction;
+use App\Actions\UpdateProductAction;
 use App\Exceptions\RouteNotFoundException;
 use App\Models\Category;
 use App\Models\Product;
 use App\Validators\StoreProductValidator;
+use App\Validators\UpdateProductValidator;
 use App\View\View;
 
 class ProductController
@@ -36,6 +38,34 @@ class ProductController
         $action = new StoreProductAction();
 
         $action($attributes);
+
+        redirect('/products');
+    }
+
+    public function edit(string $id)
+    {
+        if (! $product = Product::find((int) $id)) {
+            throw new RouteNotFoundException();
+        }
+
+        $categories = Category::all(orderBy: 'name');
+
+        $product->loadCategories();
+
+        return View::make('products/edit.html', compact('product', 'categories'));
+    }
+
+    public function update(string $id)
+    {
+        if (! $product = Product::find((int) $id)) {
+            throw new RouteNotFoundException();
+        }
+
+        $attributes = (new UpdateProductValidator())->ignore($product)->validate($_POST);
+
+        $action = new UpdateProductAction();
+
+        $action($product, $attributes);
 
         redirect('/products');
     }

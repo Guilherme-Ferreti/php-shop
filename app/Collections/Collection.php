@@ -85,4 +85,9 @@ abstract class Collection implements \IteratorAggregate, \ArrayAccess
     {
         return implode($separator, $this->items);
     }
+
+    public function all(): array
+    {
+        return $this->items;
+    }
 }

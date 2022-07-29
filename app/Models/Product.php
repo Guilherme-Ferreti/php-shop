@@ -53,7 +53,7 @@ class Product extends Model
             [
                 'name'        => $this->name,
                 'sku'         => $this->sku,
-                'price'       => $this->price * 100,
+                'price'       => $this->price,
                 'quantity'    => $this->quantity,
                 'description' => $this->description,
             ]
@@ -66,11 +66,43 @@ class Product extends Model
         return $inserted;
     }
 
+    public function update(): bool
+    {
+        return $this->db->query(
+            '
+            UPDATE products SET 
+                name = :name, 
+                sku = :sku,
+                price = :price,
+                quantity = :quantity,
+                description = :description,
+                updated_at = :updated_at 
+            WHERE
+                id = :id',
+            [
+                'id'          => $this->id,
+                'sku'         => $this->sku,
+                'name'        => $this->name,
+                'price'       => $this->price,
+                'quantity'    => $this->quantity,
+                'description' => $this->description,
+                'updated_at'  => now(),
+            ]
+        );
+    }
+
     public function delete(): bool
     {
         return $this->db->query('DELETE FROM products WHERE id = :id', [
             'id' => $this->id,
         ]);
+    }
+
+    public function loadCategories(): self
+    {
+        $this->categories = Category::getAllWhereProductIdIn($this->id);
+
+        return $this;
     }
 
     public function syncCategories(array $categoriesIds): bool
